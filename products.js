@@ -111,19 +111,32 @@ function getProductsByCategory() {
   return grouped;
 }
 
+module.exports = {
+  getAllProducts,
+  getProductById,
+  addProduct,
+  updateStock,
+  applyBulkDiscount,
+  getLowStockAlerts,
+  getInventoryValue,
+  getProductsByCategory,
+};
+
 // ── Demo ─────────────────────────────────────────────────────────────────────
 
-console.log("═".repeat(60));
-console.log("   PRODUCTS MODULE — Retail Mock Data Demo");
-console.log("═".repeat(60));
+if (require.main === module) {
+  console.log("═".repeat(60));
+  console.log("   PRODUCTS MODULE — Retail Mock Data Demo");
+  console.log("═".repeat(60));
 
-getAllProducts(true);
-getProductById("P005");
-getProductById("P999");
-addProduct({ name: "Canvas Tote Bag", category: "accessories", price: 17.99, stock: 110, sku: "AC-011" });
-updateStock("P001", -30);
-updateStock("P003", 50);
-applyBulkDiscount("clothing", 20);
-getLowStockAlerts(50);
-getProductsByCategory();
-getInventoryValue();
+  getAllProducts(true);
+  getProductById("P005");
+  getProductById("P999");
+  addProduct({ name: "Canvas Tote Bag", category: "accessories", price: 17.99, stock: 110, sku: "AC-011" });
+  updateStock("P001", -30);
+  updateStock("P003", 50);
+  applyBulkDiscount("clothing", 20);
+  getLowStockAlerts(50);
+  getProductsByCategory();
+  getInventoryValue();
+}

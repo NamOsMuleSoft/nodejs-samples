@@ -82,20 +82,33 @@ function getStats() {
   Object.entries(tiers).forEach(([tier, count]) =>
     console.log(`  ${tier.padEnd(8)}: ${count}`)
   );
+  return { total: customers.length, byTier: tiers };
 }
+
+module.exports = {
+  getAllCustomers,
+  getCustomerById,
+  addCustomer,
+  updateCustomer,
+  deleteCustomer,
+  getCustomersByTier,
+  getStats,
+};
 
 // ── Demo ─────────────────────────────────────────────────────────────────────
 
-console.log("═".repeat(55));
-console.log("   CUSTOMERS MODULE — Mock Data Demo");
-console.log("═".repeat(55));
+if (require.main === module) {
+  console.log("═".repeat(55));
+  console.log("   CUSTOMERS MODULE — Mock Data Demo");
+  console.log("═".repeat(55));
 
-getAllCustomers();
-getCustomerById(2);
-getCustomerById(99);
-addCustomer({ name: "Frank Rossi", email: "frank@italia.it", country: "IT", tier: "gold" });
-updateCustomer(4, { tier: "silver" });
-getCustomersByTier("silver");
-getStats();
-deleteCustomer(5);
-console.log(`\nFinal count: ${customers.length} customers`);
+  getAllCustomers();
+  getCustomerById(2);
+  getCustomerById(99);
+  addCustomer({ name: "Frank Rossi", email: "frank@italia.it", country: "IT", tier: "gold" });
+  updateCustomer(4, { tier: "silver" });
+  getCustomersByTier("silver");
+  getStats();
+  deleteCustomer(5);
+  console.log(`\nFinal count: ${customers.length} customers`);
+}

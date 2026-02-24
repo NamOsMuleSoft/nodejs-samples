@@ -220,28 +220,41 @@ function getRevenueSummary() {
   console.log(`   Delivered Revenue : $${total.toFixed(2)}`);
   console.log(`   Orders by Status  :`);
   Object.entries(byStatus).forEach(([s, n]) => console.log(`     ${s.padEnd(12)}: ${n}`));
+  return { total, byStatus };
 }
+
+module.exports = {
+  getAllOrders,
+  getOrderById,
+  placeOrder,
+  advanceStatus,
+  cancelOrder,
+  getOrdersByCustomer,
+  getRevenueSummary,
+};
 
 // ── Demo ──────────────────────────────────────────────────────────────────────
 
-console.log("═".repeat(60));
-console.log("   ORDERS MODULE — Retail Mock Data Demo");
-console.log("═".repeat(60));
+if (require.main === module) {
+  console.log("═".repeat(60));
+  console.log("   ORDERS MODULE — Retail Mock Data Demo");
+  console.log("═".repeat(60));
 
-getAllOrders();
-getOrderById("ORD-2024-001");
-getOrderById("ORD-9999-000");
+  getAllOrders();
+  getOrderById("ORD-2024-001");
+  getOrderById("ORD-9999-000");
 
-placeOrder(3, [
-  { productId: "P001", qty: 1 },  // Running Shoes
-  { productId: "P006", qty: 2 },  // Scented Candle x2
-]);
+  placeOrder(3, [
+    { productId: "P001", qty: 1 },  // Running Shoes
+    { productId: "P006", qty: 2 },  // Scented Candle x2
+  ]);
 
-advanceStatus("ORD-2024-003");   // pending → confirmed
-advanceStatus("ORD-2024-003");   // confirmed → shipped
+  advanceStatus("ORD-2024-003");   // pending → confirmed
+  advanceStatus("ORD-2024-003");   // confirmed → shipped
 
-cancelOrder("ORD-2025-001");     // pending → cancelled ✅
-cancelOrder("ORD-2024-002");     // already shipped → ⚠️ blocked
+  cancelOrder("ORD-2025-001");     // pending → cancelled ✅
+  cancelOrder("ORD-2024-002");     // already shipped → ⚠️ blocked
 
-getOrdersByCustomer(1);
-getRevenueSummary();
+  getOrdersByCustomer(1);
+  getRevenueSummary();
+}
