@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 
-const OPENAPI_DIR = path.join(__dirname, "..", "openapi");
+const OPENAPI_DIR = path.join(__dirname, "..", "nodejs-openapi");
 const SPECS = ["products", "orders", "customers"];
 
 function generate() {

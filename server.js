@@ -16,7 +16,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-const openapiDir = path.join(__dirname, "openapi");
+const openapiDir = path.join(__dirname, "nodejs-openapi");
 function loadSpec(name) {
   const p = path.join(openapiDir, `${name}.json`);
   try {
