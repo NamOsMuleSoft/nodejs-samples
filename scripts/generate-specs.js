@@ -23,6 +23,7 @@ function clean() {
   }
   for (const { name } of SPECS) {
     const p = path.join(OPENAPI_DIR, `${name}.json`);
+    if (path.basename(p).includes("policies")) continue; // never remove policy files
     if (fs.existsSync(p)) {
       fs.unlinkSync(p);
       console.log(`Deleted ${p}`);
