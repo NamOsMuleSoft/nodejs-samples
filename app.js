@@ -2,8 +2,11 @@
  * app.js — Fastify app for products, orders, customers (no listen).
  * OpenAPI spec is generated from route schemas via @fastify/swagger.
  * Used by server.js and by scripts/generate-specs.js for spec generation.
+ * Swagger UI is only served when generated spec files exist (openapi-nodejs/*.json).
  */
 
+const fs = require("fs");
+const path = require("path");
 const Fastify = require("fastify");
 const swagger = require("@fastify/swagger");
 const swaggerUi = require("@fastify/swagger-ui");
@@ -18,8 +21,20 @@ const {
   orderItemSchema,
 } = require("./schemas");
 
+const openapiDir = path.join(__dirname, "openapi-nodejs");
+function hasGeneratedSpecs() {
+  try {
+    if (!fs.existsSync(openapiDir)) return false;
+    const names = ["products", "orders", "customers"];
+    return names.some((name) => fs.existsSync(path.join(openapiDir, `${name}.json`)));
+  } catch {
+    return false;
+  }
+}
+
 async function buildApp() {
   const fastify = Fastify({ logger: false });
+  const serveSwaggerUi = hasGeneratedSpecs();
 
   await fastify.register(swagger, {
     openapi: {
@@ -105,26 +120,46 @@ async function buildApp() {
   fastify.get("/api-docs/index", {
     schema: { hide: true },
     handler: async (request, reply) => {
+      const uiNote = serveSwaggerUi
+        ? '<ul><li><a href="/api-docs">Swagger UI</a></li></ul>'
+        : '<p>Run <code>npm run spec</code> to generate specs and enable Swagger UI.</p>';
       reply.type("text/html").send(`
     <!DOCTYPE html>
     <html>
       <head><title>API Docs</title></head>
       <body>
         <h1>Mock Retail API – OpenAPI docs</h1>
-        <ul>
-          <li><a href="/api-docs">Swagger UI</a></li>
-        </ul>
-        <p>Specs: <a href="/api-docs/spec/products">products</a>, <a href="/api-docs/spec/orders">orders</a>, <a href="/api-docs/spec/customers">customers</a> (JSON)</p>
+        ${uiNote}
+        <p>Specs (JSON): <a href="/api-docs/spec/products">products</a>, <a href="/api-docs/spec/orders">orders</a>, <a href="/api-docs/spec/customers">customers</a></p>
       </body>
     </html>
   `);
     },
   });
 
-  await fastify.register(swaggerUi, {
-    routePrefix: "/api-docs",
-    uiConfig: { docExpansion: "list" },
-  });
+  if (serveSwaggerUi) {
+    await fastify.register(swaggerUi, {
+      routePrefix: "/api-docs",
+      uiConfig: { docExpansion: "list" },
+    });
+  } else {
+    fastify.get("/api-docs", {
+      schema: { hide: true },
+      handler: async (request, reply) => {
+        reply.type("text/html").send(`
+    <!DOCTYPE html>
+    <html>
+      <head><title>API Docs</title></head>
+      <body>
+        <h1>Mock Retail API – API Docs</h1>
+        <p>OpenAPI specs have not been generated yet. Run <code>npm run spec</code> to generate them and enable Swagger UI.</p>
+        <p>API is available at <a href="/api">/api</a>.</p>
+      </body>
+    </html>
+  `);
+      },
+    });
+  }
 
   // ── API discovery ────────────────────────────────────────────────────────────
 
