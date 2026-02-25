@@ -1,6 +1,6 @@
 /**
  * products.js — Mock Retail Products API (Node.js)
- * Run: node products.js
+ * Run: node APIimpl/products.js
  */
 
 const products = [

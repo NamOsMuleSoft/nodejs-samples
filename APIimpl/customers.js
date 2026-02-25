@@ -1,6 +1,6 @@
 /**
  * customers.js — Mock Customers API (Node.js)
- * Run: node customers.js
+ * Run: node APIimpl/customers.js
  */
 
 const customers = [

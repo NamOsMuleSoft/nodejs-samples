@@ -3,15 +3,31 @@
  * Listens on process.env.PORT for Heroku compatibility.
  */
 
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
-const products = require("./products");
-const orders = require("./orders");
-const customers = require("./customers");
+const swaggerUi = require("swagger-ui-express");
+const products = require("./APIimpl/products");
+const orders = require("./APIimpl/orders");
+const customers = require("./APIimpl/customers");
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
+
+const openapiDir = path.join(__dirname, "openapi");
+function loadSpec(name) {
+  const p = path.join(openapiDir, `${name}.json`);
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch (e) {
+    return null;
+  }
+}
+const specProducts = loadSpec("products");
+const specOrders = loadSpec("orders");
+const specCustomers = loadSpec("customers");
 
 // ── API discovery ────────────────────────────────────────────────────────────
 
@@ -216,6 +232,49 @@ app.delete("/api/customers/:id", (req, res) => {
   if (!ok) return res.status(404).json({ error: "Customer not found" });
   res.status(204).send();
 });
+
+// ── API docs (OpenAPI specs + Swagger UI) ───────────────────────────────────
+
+app.get("/api-docs/spec/products", (req, res) => {
+  if (!specProducts) return res.status(503).json({ error: "Spec not generated; run npm run spec" });
+  res.json(specProducts);
+});
+app.get("/api-docs/spec/orders", (req, res) => {
+  if (!specOrders) return res.status(503).json({ error: "Spec not generated; run npm run spec" });
+  res.json(specOrders);
+});
+app.get("/api-docs/spec/customers", (req, res) => {
+  if (!specCustomers) return res.status(503).json({ error: "Spec not generated; run npm run spec" });
+  res.json(specCustomers);
+});
+
+app.get("/api-docs", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head><title>API Docs</title></head>
+      <body>
+        <h1>Mock Retail API – OpenAPI docs</h1>
+        <ul>
+          <li><a href="/api-docs/products">Products API</a></li>
+          <li><a href="/api-docs/orders">Orders API</a></li>
+          <li><a href="/api-docs/customers">Customers API</a></li>
+        </ul>
+        <p>Specs: <a href="/api-docs/spec/products">products.json</a>, <a href="/api-docs/spec/orders">orders.json</a>, <a href="/api-docs/spec/customers">customers.json</a></p>
+      </body>
+    </html>
+  `);
+});
+
+if (specProducts) {
+  app.use("/api-docs/products", swaggerUi.serve, swaggerUi.setup(specProducts));
+}
+if (specOrders) {
+  app.use("/api-docs/orders", swaggerUi.serve, swaggerUi.setup(specOrders));
+}
+if (specCustomers) {
+  app.use("/api-docs/customers", swaggerUi.serve, swaggerUi.setup(specCustomers));
+}
 
 // ── Start ───────────────────────────────────────────────────────────────────
 

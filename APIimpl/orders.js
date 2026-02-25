@@ -1,6 +1,6 @@
 /**
  * orders.js — Mock Retail Orders API (Node.js)
- * Run: node orders.js
+ * Run: node APIimpl/orders.js
  */
 
 // ── Reference Data ────────────────────────────────────────────────────────────
