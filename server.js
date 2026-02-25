@@ -7,6 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
+const yaml = require("js-yaml");
 const products = require("./APIimpl/products");
 const orders = require("./APIimpl/orders");
 const customers = require("./APIimpl/customers");
@@ -18,9 +19,9 @@ const PORT = process.env.PORT || 3000;
 
 const openapiDir = path.join(__dirname, "nodejs-openapi");
 function loadSpec(name) {
-  const p = path.join(openapiDir, `${name}.json`);
+  const p = path.join(openapiDir, `${name}.yaml`);
   try {
-    return JSON.parse(fs.readFileSync(p, "utf8"));
+    return yaml.load(fs.readFileSync(p, "utf8"));
   } catch (e) {
     return null;
   }
@@ -260,7 +261,7 @@ app.get("/api-docs", (req, res) => {
           <li><a href="/api-docs/orders">Orders API</a></li>
           <li><a href="/api-docs/customers">Customers API</a></li>
         </ul>
-        <p>Specs: <a href="/api-docs/spec/products">products.json</a>, <a href="/api-docs/spec/orders">orders.json</a>, <a href="/api-docs/spec/customers">customers.json</a></p>
+        <p>Specs: <a href="/api-docs/spec/products">products</a>, <a href="/api-docs/spec/orders">orders</a>, <a href="/api-docs/spec/customers">customers</a> (YAML served as JSON)</p>
       </body>
     </html>
   `);
