@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "HelloCICD",
+      "description": "Test API.",
+      "license": { "name": "AXA" },
+      "version": "5.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://anypoint.mulesoft.com",
+        "description": "Generated server url"
+      }
+    ],
+    "tags": [
+      {
+        "name": "ci-cd",
+        "description": "ci-cd"
+      }
+    ],
+    "paths": {
+      "/hello": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "required": [
+                      "message"
+                    ],
+                    "properties": {
+                      "message": {
+                        "default": "hello Nam",
+                        "example": "hello Nam",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }

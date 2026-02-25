@@ -1,0 +1,39 @@
+[
+    {
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "assetId": "rate-limiting",
+      "assetVersion": "1.4.0",
+      "configurationData": {
+        "rateLimits": [
+          { "maximumRequests": 200, "timePeriodInMilliseconds": 1000 }
+        ],
+        "clusterizable": false,
+        "exposeHeaders": true
+      },
+      "pointcutData": null,
+      "disabled": false,
+      "order": 1
+    },
+    {
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "assetId": "message-logging",
+      "assetVersion": "2.0.1",
+      "configurationData": {
+        "loggingConfiguration": [
+          {
+            "itemName": "Default configuration",
+            "itemData": {
+              "message": "#[authentication.properties.claims]",
+              "category": "security",
+              "level": "INFO",
+              "firstSection": true,
+              "secondSection": false
+            }
+          }
+        ]
+      },
+      "pointcutData": null,
+      "disabled": false,
+      "order": 2
+    }
+  ]
