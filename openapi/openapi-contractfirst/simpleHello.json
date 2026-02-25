@@ -1,9 +1,9 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "title": "HelloCICD",
+      "title": "Simple Hello",
       "description": "Test API.",
-      "license": { "name": "AXA" },
+      "license": { "name": "HERMES" },
       "version": "5.0.0"
     },
     "servers": [
