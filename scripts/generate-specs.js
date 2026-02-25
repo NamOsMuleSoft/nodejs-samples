@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * generate-specs.js — Generate OAS 3.0 JSON from Fastify app (route schemas), split by domain, write to openapi-nodejs.
+ * generate-specs.js — Generate OAS 3.0 JSON from Fastify app (route schemas), split by domain, write to openapi/openapi-nodejs.
  * Run: npm run spec  OR  node scripts/generate-specs.js
  * Clean: npm run spec:clean  OR  node scripts/generate-specs.js clean
  */
@@ -9,7 +9,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
-const OPENAPI_DIR = path.join(ROOT, "openapi-nodejs");
+const OPENAPI_DIR = path.join(ROOT, "openapi", "openapi-nodejs");
 const SPECS = [
   { name: "products", prefix: "/api/products" },
   { name: "orders", prefix: "/api/orders" },
@@ -18,7 +18,7 @@ const SPECS = [
 
 function clean() {
   if (!fs.existsSync(OPENAPI_DIR)) {
-    console.log("openapi-nodejs/ does not exist; nothing to clean.");
+    console.log("openapi/openapi-nodejs/ does not exist; nothing to clean.");
     return;
   }
   for (const { name } of SPECS) {

@@ -2,7 +2,7 @@
  * app.js — Fastify app for products, orders, customers (no listen).
  * OpenAPI spec is generated from route schemas via @fastify/swagger.
  * Used by server.js and by scripts/generate-specs.js for spec generation.
- * Swagger UI is only served when generated spec files exist (openapi-nodejs/*.json).
+ * Swagger UI is only served when generated spec files exist (openapi/openapi-nodejs/*.json).
  */
 
 const fs = require("fs");
@@ -21,7 +21,7 @@ const {
   orderItemSchema,
 } = require("./schemas");
 
-const openapiDir = path.join(__dirname, "openapi-nodejs");
+const openapiDir = path.join(__dirname, "openapi", "openapi-nodejs");
 function hasGeneratedSpecs() {
   try {
     if (!fs.existsSync(openapiDir)) return false;
