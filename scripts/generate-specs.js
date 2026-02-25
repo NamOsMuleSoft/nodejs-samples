@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 /**
  * generate-specs.js — Read OpenAPI YAML source files and write static YAML specs.
- * Run: npm run spec
+ * Run: npm run spec  OR  node scripts/generate-specs.js  OR  ./scripts/generate-specs.js
  */
 
 const fs = require("fs");
