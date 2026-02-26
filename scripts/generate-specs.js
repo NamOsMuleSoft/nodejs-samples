@@ -57,6 +57,12 @@ async function generate() {
   const baseInfo = full.info || { title: "Mock Retail API", version: "1.0.0" };
   const servers = full.servers || [{ url: "/", description: "Relative to host" }];
 
+  const implVersions = {
+    products: require(path.join(ROOT, "APIimpl", "products.js")).version,
+    orders: require(path.join(ROOT, "APIimpl", "orders.js")).version,
+    customers: require(path.join(ROOT, "APIimpl", "customers.js")).version,
+  };
+
   for (const { name, prefix } of SPECS) {
     const filteredPaths = filterPaths(paths, prefix);
     if (Object.keys(filteredPaths).length === 0) {
@@ -66,7 +72,7 @@ async function generate() {
     const title = `Mock Retail API - ${name.charAt(0).toUpperCase() + name.slice(1)}`;
     const spec = {
       openapi: "3.0.0",
-      info: { ...baseInfo, title },
+      info: { ...baseInfo, title, version: implVersions[name] },
       servers,
       paths: filteredPaths,
       components: { ...components },

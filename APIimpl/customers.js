@@ -3,6 +3,8 @@
  * Run: node APIimpl/customers.js
  */
 
+const version = "1.0.0";
+
 const customers = [
   { id: 1, name: "Alice Dupont",    email: "alice@acme.com",   country: "FR", tier: "gold",   createdAt: "2023-01-15" },
   { id: 2, name: "Bob Nguyen",      email: "bob@orbit.io",     country: "US", tier: "silver", createdAt: "2023-03-22" },
@@ -86,6 +88,7 @@ function getStats() {
 }
 
 module.exports = {
+  version,
   getAllCustomers,
   getCustomerById,
   addCustomer,

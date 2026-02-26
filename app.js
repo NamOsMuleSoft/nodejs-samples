@@ -41,7 +41,7 @@ async function buildApp() {
       openapi: "3.0.0",
       info: {
         title: "Mock Retail API",
-        version: "1.0.0",
+        version: products.version,
         description: "Products, orders, customers API - generated from Fastify route schemas.",
       },
       servers: [{ url: "/", description: "Relative to host" }],

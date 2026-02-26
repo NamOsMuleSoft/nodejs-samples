@@ -3,6 +3,8 @@
  * Run: node APIimpl/orders.js
  */
 
+const version = "1.0.0";
+
 // -- Reference Data --------------------------------------------------------------
 
 const CUSTOMERS = {
@@ -224,6 +226,7 @@ function getRevenueSummary() {
 }
 
 module.exports = {
+  version,
   getAllOrders,
   getOrderById,
   placeOrder,
