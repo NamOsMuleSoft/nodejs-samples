@@ -1,0 +1,644 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mock Retail API - Products",
+    "version": "1.0.0",
+    "description": "Products, orders, customers API - generated from Fastify route schemas."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Relative to host"
+    }
+  ],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "in": "query",
+            "name": "onlyActive",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stock": {
+                        "type": "integer"
+                      },
+                      "sku": {
+                        "type": "string"
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "category",
+                  "price",
+                  "stock",
+                  "sku"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "stock": {
+                    "type": "integer"
+                  },
+                  "sku": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "stock": {
+                      "type": "integer"
+                    },
+                    "sku": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/low-stock": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "threshold",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stock": {
+                        "type": "integer"
+                      },
+                      "sku": {
+                        "type": "string"
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/inventory-value": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/by-category": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "stock": {
+                      "type": "integer"
+                    },
+                    "sku": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/{id}/stock": {
+      "patch": {
+        "tags": [
+          "products"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "qty"
+                ],
+                "properties": {
+                  "qty": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "stock": {
+                      "type": "integer"
+                    },
+                    "sku": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/bulk-discount": {
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "category",
+                  "discountPct"
+                ],
+                "properties": {
+                  "category": {
+                    "type": "string"
+                  },
+                  "discountPct": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stock": {
+                        "type": "integer"
+                      },
+                      "sku": {
+                        "type": "string"
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "stock": {
+            "type": "integer"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string"
+                },
+                "qty": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "customer": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "total": {
+            "type": "string"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "tier": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderItem": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "qty": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

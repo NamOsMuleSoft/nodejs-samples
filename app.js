@@ -1,5 +1,5 @@
 /**
- * app.js — Fastify app for products, orders, customers (no listen).
+ * app.js - Fastify app for products, orders, customers (no listen).
  * OpenAPI spec is generated from route schemas via @fastify/swagger.
  * Used by server.js and by scripts/generate-specs.js for spec generation.
  * Swagger UI is only served when generated spec files exist (openapi/openapi-nodejs/*.json).
@@ -42,7 +42,7 @@ async function buildApp() {
       info: {
         title: "Mock Retail API",
         version: "1.0.0",
-        description: "Products, orders, customers API — generated from Fastify route schemas.",
+        description: "Products, orders, customers API - generated from Fastify route schemas.",
       },
       servers: [{ url: "/", description: "Relative to host" }],
       tags: [
@@ -74,7 +74,7 @@ async function buildApp() {
       }
       return reply.send({
         openapi: "3.0.0",
-        info: { ...full.info, title: "Mock Retail API – Products" },
+        info: { ...full.info, title: "Mock Retail API - Products" },
         servers: full.servers,
         paths,
         components: full.components || {},
@@ -92,7 +92,7 @@ async function buildApp() {
       }
       return reply.send({
         openapi: "3.0.0",
-        info: { ...full.info, title: "Mock Retail API – Orders" },
+        info: { ...full.info, title: "Mock Retail API - Orders" },
         servers: full.servers,
         paths,
         components: full.components || {},
@@ -110,7 +110,7 @@ async function buildApp() {
       }
       return reply.send({
         openapi: "3.0.0",
-        info: { ...full.info, title: "Mock Retail API – Customers" },
+        info: { ...full.info, title: "Mock Retail API - Customers" },
         servers: full.servers,
         paths,
         components: full.components || {},
@@ -128,7 +128,7 @@ async function buildApp() {
     <html>
       <head><title>API Docs</title></head>
       <body>
-        <h1>Mock Retail API – OpenAPI docs</h1>
+        <h1>Mock Retail API - OpenAPI docs</h1>
         ${uiNote}
         <p>Specs (JSON): <a href="/api-docs/spec/products">products</a>, <a href="/api-docs/spec/orders">orders</a>, <a href="/api-docs/spec/customers">customers</a></p>
       </body>
@@ -151,7 +151,7 @@ async function buildApp() {
     <html>
       <head><title>API Docs</title></head>
       <body>
-        <h1>Mock Retail API – API Docs</h1>
+        <h1>Mock Retail API - API Docs</h1>
         <p>OpenAPI specs have not been generated yet. Run <code>npm run spec</code> to generate them and enable Swagger UI.</p>
         <p>API is available at <a href="/api">/api</a>.</p>
       </body>
@@ -161,7 +161,7 @@ async function buildApp() {
     });
   }
 
-  // ── API discovery ────────────────────────────────────────────────────────────
+  // -- API discovery -----------------------------------------------------------------
 
   fastify.get("/", {
     schema: {
@@ -232,7 +232,7 @@ async function buildApp() {
     }),
   });
 
-  // ── Products ─────────────────────────────────────────────────────────────────
+  // -- Products ---------------------------------------------------------------------
 
   fastify.get("/api/products", {
     schema: {
@@ -389,7 +389,7 @@ async function buildApp() {
     },
   });
 
-  // ── Orders (specific routes before :id) ────────────────────────────────────────
+  // -- Orders (specific routes before :id) ------------------------------------------
 
   fastify.get("/api/orders", {
     schema: {
@@ -511,7 +511,7 @@ async function buildApp() {
     },
   });
 
-  // ── Customers (specific routes before :id) ────────────────────────────────────
+  // -- Customers (specific routes before :id) -------------------------------------
 
   fastify.get("/api/customers", {
     schema: {

@@ -1,7 +1,7 @@
 {
   "name": "nodejs-samples",
   "version": "1.0.0",
-  "description": "Mock Retail API — products, orders, customers",
+  "description": "Mock Retail API - products, orders, customers",
   "main": "server.js",
   "engines": { "node": "20.x" },
   "scripts": {

@@ -1,9 +1,9 @@
 /**
- * orders.js — Mock Retail Orders API (Node.js)
+ * orders.js - Mock Retail Orders API (Node.js)
  * Run: node APIimpl/orders.js
  */
 
-// ── Reference Data ────────────────────────────────────────────────────────────
+// -- Reference Data --------------------------------------------------------------
 
 const CUSTOMERS = {
   1: { name: "Alice Dupont",  country: "FR" },
@@ -24,7 +24,7 @@ const PRODUCTS = {
   "P009": { name: "Vintage Cap",           unitPrice:  22.99 },
 };
 
-// ── Mock Orders ───────────────────────────────────────────────────────────────
+// -- Mock Orders -----------------------------------------------------------------
 
 const orders = [
   {
@@ -82,7 +82,7 @@ const orders = [
   },
 ];
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// -- Helpers ---------------------------------------------------------------------
 
 const STATUS_FLOW = ["pending", "confirmed", "shipped", "delivered"];
 
@@ -110,10 +110,10 @@ function enrichOrder(order) {
   };
 }
 
-// ── Operations ────────────────────────────────────────────────────────────────
+// -- Operations ------------------------------------------------------------------
 
 function getAllOrders() {
-  console.log(`\n📋 All Orders (${orders.length}):`);
+  console.log(`\n[LIST] All Orders (${orders.length}):`);
   console.table(
     orders.map((o) => ({
       id: o.id,
@@ -130,23 +130,23 @@ function getAllOrders() {
 function getOrderById(id) {
   const order = orders.find((o) => o.id === id);
   if (!order) {
-    console.log(`\n❌ Order "${id}" not found.`);
+    console.log(`\n[ERROR] Order "${id}" not found.`);
     return null;
   }
   const rich = enrichOrder(order);
-  console.log(`\n🔍 Order ${id}:`);
+  console.log(`\n[OK] Order ${id}:`);
   console.log(`   Customer : ${rich.customer} (${rich.country})`);
   console.log(`   Status   : ${rich.status}`);
   console.log(`   Date     : ${rich.createdAt}`);
   console.log(`   Items:`);
-  rich.items.forEach((i) => console.log(`     • ${i.product} × ${i.qty}  →  ${i.lineTotal}`));
+  rich.items.forEach((i) => console.log(`     - ${i.product} x ${i.qty}  ->  ${i.lineTotal}`));
   console.log(`   TOTAL    : ${rich.total}`);
   return rich;
 }
 
 function placeOrder(customerId, items) {
   if (!CUSTOMERS[customerId]) {
-    console.log(`\n❌ Cannot place order — Customer #${customerId} not found.`);
+    console.log(`\n[ERROR] Cannot place order - Customer #${customerId} not found.`);
     return null;
   }
   const year = new Date().getFullYear();
@@ -159,50 +159,50 @@ function placeOrder(customerId, items) {
     items,
   };
   orders.push(order);
-  console.log(`\n✅ Order placed: ${order.id} | Total: $${computeTotal(items).toFixed(2)}`);
+  console.log(`\n[OK] Order placed: ${order.id} | Total: $${computeTotal(items).toFixed(2)}`);
   return order;
 }
 
 function advanceStatus(id) {
   const order = orders.find((o) => o.id === id);
   if (!order) {
-    console.log(`\n❌ Order "${id}" not found.`);
+    console.log(`\n[ERROR] Order "${id}" not found.`);
     return null;
   }
   const currentIndex = STATUS_FLOW.indexOf(order.status);
   if (currentIndex === -1 || order.status === "cancelled") {
-    console.log(`\n⚠️  Order "${id}" cannot be advanced (status: ${order.status}).`);
+    console.log(`\n[WARN] Order "${id}" cannot be advanced (status: ${order.status}).`);
     return null;
   }
   if (currentIndex === STATUS_FLOW.length - 1) {
-    console.log(`\n✅ Order "${id}" is already at final status: ${order.status}.`);
+    console.log(`\n[OK] Order "${id}" is already at final status: ${order.status}.`);
     return order;
   }
   const previous = order.status;
   order.status = STATUS_FLOW[currentIndex + 1];
-  console.log(`\n🚀 Order ${id}: ${previous} → ${order.status}`);
+  console.log(`\n[OK] Order ${id}: ${previous} -> ${order.status}`);
   return order;
 }
 
 function cancelOrder(id) {
   const order = orders.find((o) => o.id === id);
   if (!order) {
-    console.log(`\n❌ Order "${id}" not found.`);
+    console.log(`\n[ERROR] Order "${id}" not found.`);
     return false;
   }
   if (["shipped", "delivered"].includes(order.status)) {
-    console.log(`\n⚠️  Cannot cancel — Order "${id}" is already ${order.status}.`);
+    console.log(`\n[WARN] Cannot cancel - Order "${id}" is already ${order.status}.`);
     return false;
   }
   order.status = "cancelled";
-  console.log(`\n🚫 Order "${id}" cancelled.`);
+  console.log(`\n[OK] Order "${id}" cancelled.`);
   return true;
 }
 
 function getOrdersByCustomer(customerId) {
   const result = orders.filter((o) => o.customerId === customerId);
   const customer = CUSTOMERS[customerId];
-  console.log(`\n👤 Orders for ${customer?.name ?? "Unknown"} (${result.length}):`);
+  console.log(`\n[LIST] Orders for ${customer?.name ?? "Unknown"} (${result.length}):`);
   result.forEach((o) =>
     console.log(`   ${o.id}  |  ${o.status.padEnd(10)}  |  $${computeTotal(o.items).toFixed(2)}`)
   );
@@ -216,7 +216,7 @@ function getRevenueSummary() {
     acc[o.status] = (acc[o.status] || 0) + 1;
     return acc;
   }, {});
-  console.log("\n📊 Revenue Summary:");
+  console.log("\n[STATS] Revenue Summary:");
   console.log(`   Delivered Revenue : $${total.toFixed(2)}`);
   console.log(`   Orders by Status  :`);
   Object.entries(byStatus).forEach(([s, n]) => console.log(`     ${s.padEnd(12)}: ${n}`));
@@ -233,12 +233,12 @@ module.exports = {
   getRevenueSummary,
 };
 
-// ── Demo ──────────────────────────────────────────────────────────────────────
+// -- Demo ------------------------------------------------------------------------
 
 if (require.main === module) {
-  console.log("═".repeat(60));
-  console.log("   ORDERS MODULE — Retail Mock Data Demo");
-  console.log("═".repeat(60));
+  console.log("=".repeat(60));
+  console.log("   ORDERS MODULE - Retail Mock Data Demo");
+  console.log("=".repeat(60));
 
   getAllOrders();
   getOrderById("ORD-2024-001");
@@ -249,11 +249,11 @@ if (require.main === module) {
     { productId: "P006", qty: 2 },  // Scented Candle x2
   ]);
 
-  advanceStatus("ORD-2024-003");   // pending → confirmed
-  advanceStatus("ORD-2024-003");   // confirmed → shipped
+  advanceStatus("ORD-2024-003");   // pending -> confirmed
+  advanceStatus("ORD-2024-003");   // confirmed -> shipped
 
-  cancelOrder("ORD-2025-001");     // pending → cancelled ✅
-  cancelOrder("ORD-2024-002");     // already shipped → ⚠️ blocked
+  cancelOrder("ORD-2025-001");     // pending -> cancelled [OK]
+  cancelOrder("ORD-2024-002");     // already shipped -> [WARN] blocked
 
   getOrdersByCustomer(1);
   getRevenueSummary();

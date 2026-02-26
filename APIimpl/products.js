@@ -1,5 +1,5 @@
 /**
- * products.js — Mock Retail Products API (Node.js)
+ * products.js - Mock Retail Products API (Node.js)
  * Run: node APIimpl/products.js
  */
 
@@ -16,7 +16,7 @@ const products = [
   { id: "P010", name: "Foam Roller (Retired)",   category: "sports",      price:  18.99, stock:   0, sku: "SP-010", active: false },
 ];
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// -- Helpers ----------------------------------------------------------------------
 
 const findById       = (id) => products.find((p) => p.id === id);
 const findByCategory = (cat) => products.filter((p) => p.category === cat);
@@ -26,11 +26,11 @@ function applyDiscount(price, pct) {
   return parseFloat((price * (1 - pct / 100)).toFixed(2));
 }
 
-// ── Operations ───────────────────────────────────────────────────────────────
+// -- Operations -------------------------------------------------------------------
 
 function getAllProducts(onlyActive = false) {
   const list = onlyActive ? activeProducts() : products;
-  console.log(`\n📦 Products (${onlyActive ? "active only" : "all"}):`);
+  console.log(`\n[LIST] Products (${onlyActive ? "active only" : "all"}):`);
   console.table(list.map(({ id, name, category, price, stock, active }) =>
     ({ id, name, category, price: `$${price}`, stock, active })
   ));
@@ -40,52 +40,52 @@ function getAllProducts(onlyActive = false) {
 function getProductById(id) {
   const product = findById(id);
   if (!product) {
-    console.log(`\n❌ Product "${id}" not found.`);
+    console.log(`\n[ERROR] Product "${id}" not found.`);
     return null;
   }
-  console.log(`\n🔍 Product ${id}:`, product);
+  console.log(`\n[OK] Product ${id}:`, product);
   return product;
 }
 
 function addProduct(newProduct) {
   if (products.some((p) => p.sku === newProduct.sku)) {
-    console.log(`\n⚠️  SKU "${newProduct.sku}" already exists.`);
+    console.log(`\n[WARN] SKU "${newProduct.sku}" already exists.`);
     return null;
   }
   const id = `P${String(products.length + 1).padStart(3, "0")}`;
   const entry = { id, active: true, ...newProduct };
   products.push(entry);
-  console.log(`\n✅ Product added:`, entry);
+  console.log(`\n[OK] Product added:`, entry);
   return entry;
 }
 
 function updateStock(id, qty) {
   const product = findById(id);
   if (!product) {
-    console.log(`\n❌ Product "${id}" not found.`);
+    console.log(`\n[ERROR] Product "${id}" not found.`);
     return null;
   }
   const previous = product.stock;
   product.stock = Math.max(0, product.stock + qty);
-  console.log(`\n📦 Stock updated for "${product.name}": ${previous} → ${product.stock}`);
+  console.log(`\n[OK] Stock updated for "${product.name}": ${previous} -> ${product.stock}`);
   return product;
 }
 
 function applyBulkDiscount(category, discountPct) {
   const targets = findByCategory(category).filter((p) => p.active);
-  console.log(`\n💰 Applying ${discountPct}% discount to "${category}" products:`);
+  console.log(`\n[OK] Applying ${discountPct}% discount to "${category}" products:`);
   targets.forEach((p) => {
     const original = p.price;
     p.price = applyDiscount(p.price, discountPct);
-    console.log(`   ${p.name}: $${original} → $${p.price}`);
+    console.log(`   ${p.name}: $${original} -> $${p.price}`);
   });
   return targets;
 }
 
 function getLowStockAlerts(threshold = 50) {
   const alerts = products.filter((p) => p.stock <= threshold && p.active);
-  console.log(`\n🚨 Low Stock Alerts (≤ ${threshold} units):`);
-  if (alerts.length === 0) console.log("   None — all good!");
+  console.log(`\n[WARN] Low Stock Alerts (<= ${threshold} units):`);
+  if (alerts.length === 0) console.log("   None - all good!");
   else console.table(alerts.map(({ id, name, category, stock }) => ({ id, name, category, stock })));
   return alerts;
 }
@@ -94,7 +94,7 @@ function getInventoryValue() {
   const total = products
     .filter((p) => p.active)
     .reduce((sum, p) => sum + p.price * p.stock, 0);
-  console.log(`\n💼 Total Inventory Value: $${total.toFixed(2)}`);
+  console.log(`\n[STATS] Total Inventory Value: $${total.toFixed(2)}`);
   return total;
 }
 
@@ -104,7 +104,7 @@ function getProductsByCategory() {
     acc[p.category].push(p.name);
     return acc;
   }, {});
-  console.log("\n🗂️  Products by Category:");
+  console.log("\n[LIST] Products by Category:");
   Object.entries(grouped).forEach(([cat, names]) =>
     console.log(`   ${cat.padEnd(14)}: ${names.join(", ")}`)
   );
@@ -122,12 +122,12 @@ module.exports = {
   getProductsByCategory,
 };
 
-// ── Demo ─────────────────────────────────────────────────────────────────────
+// -- Demo -------------------------------------------------------------------------
 
 if (require.main === module) {
-  console.log("═".repeat(60));
-  console.log("   PRODUCTS MODULE — Retail Mock Data Demo");
-  console.log("═".repeat(60));
+  console.log("=".repeat(60));
+  console.log("   PRODUCTS MODULE - Retail Mock Data Demo");
+  console.log("=".repeat(60));
 
   getAllProducts(true);
   getProductById("P005");

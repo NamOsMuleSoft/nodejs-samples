@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * generate-specs.js — Generate OAS 3.0 JSON from Fastify app (route schemas), split by domain, write to openapi/openapi-nodejs.
+ * generate-specs.js - Generate OAS 3.0 JSON from Fastify app (route schemas), split by domain, write to openapi/openapi-nodejs.
  * Run: npm run spec  OR  node scripts/generate-specs.js
  * Clean: npm run spec:clean  OR  node scripts/generate-specs.js clean
  */
@@ -63,7 +63,7 @@ async function generate() {
       console.warn(`No paths found for prefix ${prefix}; skipping ${name}.json`);
       continue;
     }
-    const title = `Mock Retail API – ${name.charAt(0).toUpperCase() + name.slice(1)}`;
+    const title = `Mock Retail API - ${name.charAt(0).toUpperCase() + name.slice(1)}`;
     const spec = {
       openapi: "3.0.0",
       info: { ...baseInfo, title },

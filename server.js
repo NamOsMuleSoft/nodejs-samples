@@ -1,5 +1,5 @@
 /**
- * server.js — Starts the Fastify API (Heroku-ready).
+ * server.js - Starts the Fastify API (Heroku-ready).
  * Listens on process.env.PORT when run directly; app is in app.js for spec generation.
  */
 
