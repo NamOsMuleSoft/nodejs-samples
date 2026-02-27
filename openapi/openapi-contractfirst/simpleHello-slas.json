@@ -1,0 +1,29 @@
+[
+    {
+      "name": "Free",
+      "nreqs": 1,
+      "period": 1,
+      "unit": "second",
+      "autoApprove": true,
+      "visible": true,
+      "description": "Public access tier"
+    },
+    {
+      "name": "Silver",
+      "nreqs": 10,
+      "period": 1,
+      "unit": "second",
+      "autoApprove": false,
+      "visible": true,
+      "description": "Standard business tier"
+    },
+    {
+      "name": "Gold",
+      "nreqs": 100,
+      "period": 1,
+      "unit": "second",
+      "autoApprove": false,
+      "visible": true,
+      "description": "High-throughput partner tier"
+    }
+  ]
