@@ -3,7 +3,7 @@
  * Run: node APIimpl/products.js
  */
 
-const version = "1.0.0";
+const version = "2.0.0";
 
 const products = [
   { id: "P001", name: "Running Shoes",          category: "footwear",    price:  89.99, stock: 120, sku: "FW-001", active: true  },
