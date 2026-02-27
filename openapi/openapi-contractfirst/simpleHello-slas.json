@@ -2,8 +2,8 @@
     {
       "name": "Free",
       "nreqs": 1,
-      "period": 10,
-      "unit": "second",
+      "period": 1,
+      "unit": "minute",
       "autoApprove": true,
       "visible": true,
       "description": "Public access tier"
@@ -11,8 +11,8 @@
     {
       "name": "Silver",
       "nreqs": 5,
-      "period": 10,
-      "unit": "second",
+      "period": 1,
+      "unit": "minute",
       "autoApprove": false,
       "visible": true,
       "description": "Standard business tier"
@@ -20,8 +20,8 @@
     {
       "name": "Gold",
       "nreqs": 100,
-      "period": 10,
-      "unit": "second",
+      "period": 1,
+      "unit": "minute",
       "autoApprove": false,
       "visible": true,
       "description": "High-throughput partner tier"
