@@ -3,7 +3,7 @@
  * Run: node APIimpl/customers.js
  */
 
-const version = "1.0.0";
+const version = "1.0.1";
 
 const customers = [
   { id: 1, name: "Alice Dupont",    email: "alice@acme.com",   country: "FR", tier: "gold",   createdAt: "2023-01-15" },
