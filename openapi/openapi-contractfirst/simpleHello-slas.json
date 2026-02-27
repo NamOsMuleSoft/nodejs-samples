@@ -2,7 +2,7 @@
     {
       "name": "Free",
       "nreqs": 1,
-      "period": 1,
+      "period": 10,
       "unit": "second",
       "autoApprove": true,
       "visible": true,
@@ -10,8 +10,8 @@
     },
     {
       "name": "Silver",
-      "nreqs": 10,
-      "period": 1,
+      "nreqs": 5,
+      "period": 10,
       "unit": "second",
       "autoApprove": false,
       "visible": true,
@@ -20,7 +20,7 @@
     {
       "name": "Gold",
       "nreqs": 100,
-      "period": 1,
+      "period": 10,
       "unit": "second",
       "autoApprove": false,
       "visible": true,
