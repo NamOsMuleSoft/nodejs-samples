@@ -5,7 +5,10 @@
       "assetVersion": "1.4.0",
       "configurationData": {
         "clientIdExpression": "#[attributes.headers['client_id']]",
-        "clientSecretExpression": "#[attributes.headers['client_secret']]"
+        "clientSecretExpression": "#[attributes.headers['client_secret']]",
+        "exposeHeaders": true,
+        "clusterizable": true,
+        "blockOnUnknownQuota": true
       },
       "pointcutData": null,
       "disabled": false,
