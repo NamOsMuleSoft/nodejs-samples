@@ -12,13 +12,33 @@
     },
     "pointcutData": [
       {
-        "methodRegex": "(POST|PATCH)",
+        "methodRegex": "POST|PATCH",
         "uriTemplateRegex": ".*"
       }
     ],
     "label": "OAUTH2 WRITE",
     "disabled": false,
     "order": 1
+  },{
+    "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+    "assetId": "openidconnect-access-token-enforcement",
+    "assetVersion": "0.9.1",
+    "configurationData": {
+      "scopes": "partner:read",
+      "scopeValidationCriteria": "AND",
+      "exposeHeaders": true,
+      "skipClientIdValidation": true,
+      "authenticationTimeout": 10000
+    },
+    "pointcutData": [
+      {
+        "methodRegex": "GET",
+        "uriTemplateRegex": ".*"
+      }
+    ],
+    "label": "OAUTH2 READ",
+    "disabled": false,
+    "order": 2
   },
   {
     "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
@@ -40,6 +60,6 @@
     },
     "pointcutData": null,
     "disabled": false,
-    "order": 2
+    "order": 3
   }
 ]
