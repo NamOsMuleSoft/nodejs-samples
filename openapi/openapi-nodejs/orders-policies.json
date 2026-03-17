@@ -1,7 +1,7 @@
 [
   {
     "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
-    "assetId": "openid-connect-access-token-enforcement",
+    "assetId": "openidconnect-access-token-enforcement",
     "assetVersion": "0.9.1",
     "configurationData": {
       "scopes": "partner:write",
@@ -17,7 +17,7 @@
       }
     ],
     "disabled": false,
-    "order": 1
+    "order": 2
   },
   {
     "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
