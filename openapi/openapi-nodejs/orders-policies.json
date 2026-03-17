@@ -12,12 +12,13 @@
     },
     "pointcutData": [
       {
-        "methodRegex": ["POST", "PATCH"],
+        "methodRegex": "(POST|PATCH)",
         "uriTemplateRegex": ".*"
       }
     ],
+    "label": "OAUTH2 WRITE",
     "disabled": false,
-    "order": 2
+    "order": 1
   },
   {
     "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
