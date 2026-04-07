@@ -2,6 +2,9 @@
 title: candidate-demo-secure
 version: 1.0.0
 description: API for managing candidates
+tags:
+  - name: ci-cd
+    description: ci-cd
 
 baseUri: https://candidate-demo-api-real-endpoint-ag7n92.m3jzw3-2.deu-c1.cloudhub.io/api
 
