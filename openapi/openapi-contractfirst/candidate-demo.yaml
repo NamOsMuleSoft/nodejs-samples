@@ -1,0 +1,120 @@
+#%RAML 1.0
+title: candidate-demo-secure
+version: 1.0.0
+description: API for managing candidates
+
+baseUri: https://candidate-demo-api-real-endpoint-ag7n92.m3jzw3-2.deu-c1.cloudhub.io/api
+
+securitySchemes:
+  client_credentials:
+    description: Client credentials security scheme
+    type: x-custom
+    describedBy:
+      headers:
+        client_id:
+          displayName: Client ID
+          description: Client ID provided by API Manager
+          type: string
+          required: true
+        client_secret:
+          displayName: Client Secret  
+          description: Client Secret provided by API Manager
+          type: string
+          required: true
+
+securedBy: [client_credentials]
+
+types:
+  Candidate:
+    type: object
+    properties:
+      id:
+        type: string
+        required: true
+      firstName:
+        type: string
+        required: true
+      lastName:
+        type: string
+        required: true
+      email:
+        type: string
+        pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+        required: true
+      phoneNumber:
+        type: string
+        required: true
+      jobTitle:
+        type: string
+        required: true
+      grade:
+        type: string
+        enum: [associate, junior, senior, principal]
+        required: true
+      coOptPersonEmail:
+        type: string
+        pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+        required: true
+
+/candidates:
+  get:
+    displayName: Get all candidates
+    description: Retrieve a list of all candidates
+    responses:
+      200:
+        description: List of all candidates
+        body:
+          application/json:
+            type: Candidate[]
+            example: |
+              [
+                {
+                  "id": "123",
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "email": "john.doe@example.com",
+                  "phoneNumber": "+1-555-0123",
+                  "jobTitle": "Software Engineer",
+                  "grade": "senior",
+                  "coOptPersonEmail": "manager@example.com"
+                }
+              ]
+  
+  post:
+    displayName: Create candidates from an array
+    description: Create multiple candidates from an array
+    body:
+      application/json:
+        type: Candidate[]
+        example: |
+          [
+            {
+              "id": "123",
+              "firstName": "John",
+              "lastName": "Doe",
+              "email": "john.doe@example.com",
+              "phoneNumber": "+1-555-0123",
+              "jobTitle": "Software Engineer",
+              "grade": "senior",
+              "coOptPersonEmail": "manager@example.com"
+            }
+          ]
+    responses:
+      201:
+        description: Candidates created successfully
+        body:
+          application/json:
+            type: Candidate[]
+            example: |
+              [
+                {
+                  "id": "123",
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "email": "john.doe@example.com",
+                  "phoneNumber": "+1-555-0123",
+                  "jobTitle": "Software Engineer",
+                  "grade": "senior",
+                  "coOptPersonEmail": "manager@example.com"
+                }
+              ]
